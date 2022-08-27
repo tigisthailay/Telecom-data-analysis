@@ -1,41 +1,81 @@
 import unittest
-import sys, os
-sys.path.append(os.path.abspath(os.path.join('..')))
 
-from scripts.script import find_average, count_occurence
+import pandas as pd
 
 
-class TestCases(unittest.TestCase):
-    def test_find_average(self):
-        """
-        Test that it retunrs the average of a given list
-        """
-        data = [1, 2, 3]
-        result = find_average(data)
-        self.assertEqual(result, 2.0)
+class TestCleaningDf(unittest.TestCase):
+    def setUp(self) -> pd.DataFrame:
+        try:
+            data = pd.read_csv(
+                "C:/Users/user/Downloads/Telecom-data-analysis/data/cleaned_data.csv", parse_dates=["Start", "End"]
+            )
+            self.dataframe = data
+        except IOError:
+            print("could not open csv file")
 
-    def test_input_value(self):
-        """
-        Provide an assertion level for arg input
-        """
-        
-        self.assertRaises(TypeError, find_average, True)
+    def test_dataframe_shape(self):
+        self.assertEqual(self.dataframe.shape, (150001, 45))
 
-class TestCountOccurence(unittest.TestCase):
-    def test_count_occurence(self):
-        """
-        Test that it returns the count of each unique values in the given list
-        """
-        data = [0,0,9,0,8,9,0,7]
-        result = count_occurence(data)
-        output = {0: 4, 9: 2, 8: 1, 7: 1}
-        self.assertAlmostEqual(result, output)
+    def test_columns(self):
+        dataset_columns = [
+            "Bearer Id",
+            "Start",
+            "Start ms",
+            "End",
+            "End ms",
+            "Dur. (ms)",
+            "IMSI",
+            "MSISDN/Number",
+            "IMEI",
+            "Last Location Name",
+            "Avg RTT DL (ms)",
+            "Avg RTT UL (ms)",
+            "Avg Bearer TP DL (kbps)",
+            "Avg Bearer TP UL (kbps)",
+            "TCP DL Retrans. Vol (Bytes)",
+            "TCP UL Retrans. Vol (Bytes)",
+            "DL TP < 50 Kbps (%)",
+            "50 Kbps < DL TP < 250 Kbps (%)",
+            "250 Kbps < DL TP < 1 Mbps (%)",
+            "DL TP > 1 Mbps (%)",
+            "UL TP < 10 Kbps (%)",
+            "10 Kbps < UL TP < 50 Kbps (%)",
+            "50 Kbps < UL TP < 300 Kbps (%)",
+            "UL TP > 300 Kbps (%)",
+            "HTTP DL (Bytes)",
+            "HTTP UL (Bytes)",
+            "Activity Duration DL (ms)",
+            "Activity Duration UL (ms)",
+            "Dur. (ms).1",
+            "Handset Manufacturer",
+            "Handset Type",
+            "Nb of sec with 125000B < Vol DL",
+            "Nb of sec with 1250B < Vol UL < 6250B",
+            "Nb of sec with 31250B < Vol DL < 125000B",
+            "Nb of sec with 37500B < Vol UL",
+            "Nb of sec with 6250B < Vol DL < 31250B",
+            "Nb of sec with 6250B < Vol UL < 37500B",
+            "Nb of sec with Vol DL < 6250B",
+            "Nb of sec with Vol UL < 1250B",
+            "Social Media DL (Bytes)",
+            "Social Media UL (Bytes)",
+            "Google DL (Bytes)",
+            "Google UL (Bytes)",
+            "Email DL (Bytes)",
+            "Email UL (Bytes)",
+            "Youtube DL (Bytes)",
+            "Youtube UL (Bytes)",
+            "Netflix DL (Bytes)",
+            "Netflix UL (Bytes)",
+            "Gaming DL (Bytes)",
+            "Gaming UL (Bytes)",
+            "Other DL (Bytes)",
+            "Other UL (Bytes)",
+            "Total UL (Bytes)",
+            "Total DL (Bytes)",
+        ]
+        self.assertEqual(self.dataframe.columns, dataset_columns)
 
-    def test_input_value(self):
-        """
-        Provide an assertion level for arg input
-        """
-        self.assertRaises(TypeError, count_occurence, True)
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     unittest.main()

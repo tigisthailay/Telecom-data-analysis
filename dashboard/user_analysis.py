@@ -9,7 +9,7 @@ import pandas as pd
 import streamlit as st
 import matplotlib.pyplot as plt
 
-import script.ploting_fun as plot
+import script.ploting as plot
 #This is User Averview Analysis
 st.subheader('overciew page')
 st.set_option('deprecation.showPyplotGlobalUse', False)

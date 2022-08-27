@@ -3,8 +3,8 @@ import streamlit as st
 import seaborn as sns
 import matplotlib.pyplot as plt
 
-import script.ploting_fun as plot
-import script.utility as utils
+import script.ploting as plot
+import script.utils as utils
 #This Code is for engaement analysis
 st.set_option('deprecation.showPyplotGlobalUse', False)
 

@@ -6,7 +6,7 @@ from wordcloud import WordCloud
 import plotly.express as px
 from insert_data  import db_execute_fetch
 
-st.set_page_config(page_title="Day 5", layout="wide")
+st.set_page_config(page_title="Telecom user analysis", layout="wide")
 
 def loadData():
     query = "select * from TelecomDataTable"
@@ -15,15 +15,15 @@ def loadData():
 
 def selectHashTag():
     df = loadData()
-    hashTags = st.multiselect("choose combaniation of hashtags", list(df['hashtags'].unique()))
+    hashTags = st.multiselect("choose combaniation ", list(df['hashtags'].unique()))
     if hashTags:
         df = df[np.isin(df, hashTags).any(axis=1)]
         st.write(df)
 
 def selectLocAndAuth():
     df = loadData()
-    location = st.multiselect("choose Location of tweets", list(df['place'].unique()))
-    lang = st.multiselect("choose Language of tweets", list(df['language'].unique()))
+    location = st.multiselect("choose Location", list(df['place'].unique()))
+    lang = st.multiselect("choose Language ", list(df['language'].unique()))
 
     if location and not lang:
         df = df[np.isin(df, location).any(axis=1)]

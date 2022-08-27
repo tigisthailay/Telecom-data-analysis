@@ -3,13 +3,12 @@ import streamlit as st
 import seaborn as sns
 import matplotlib.pyplot as plt
 
-import script.ploting as plot
-
-import script.utils as utils
+import script.ploting_fun as plot
+import script.utility as utils
 #This Code is for engaement analysis
 st.set_option('deprecation.showPyplotGlobalUse', False)
 
-def get_user_related_columns(df_clean):
+def get_user_related_columns(df):
 
   aggrigate = {
       'Total Social Media':'sum',
@@ -21,23 +20,23 @@ def get_user_related_columns(df_clean):
       'Total Email': 'sum',
       'Total':'sum'
   }
-  user_app_usage = df_clean.copy()
+  userapp = df.copy()
 
-  user_app_usage["Total Google"]    = user_app_usage["Google DL (Bytes)"] + user_app_usage["Google UL (Bytes)"]
-  user_app_usage["Total Youtube"]   = user_app_usage["Youtube DL (Bytes)"] + user_app_usage["Youtube UL (Bytes)"]
-  user_app_usage["Total Netflix"]   = user_app_usage["Netflix DL (Bytes)"] + user_app_usage["Netflix UL (Bytes)"]
-  user_app_usage["Total Email"]     = user_app_usage["Email DL (Bytes)"] + user_app_usage["Email UL (Bytes)"]
-  user_app_usage["Total Gaming"]    = user_app_usage["Gaming DL (Bytes)"] + user_app_usage["Gaming UL (Bytes)"]
-  user_app_usage["Total Social Media"] = user_app_usage["Social Media DL (Bytes)"] + user_app_usage["Social Media UL (Bytes)"]
-  user_app_usage["Total Other"]     = user_app_usage["Other DL (Bytes)"] + user_app_usage["Other UL (Bytes)"]
-  user_app_usage['Total']           = user_app_usage['Total UL (Bytes)'] + user_app_usage['Total DL (Bytes)']
+  userapp["Total Google"]    = userapp["Google DL (Bytes)"] + userapp["Google UL (Bytes)"]
+  userapp["Total Youtube"]   = userapp["Youtube DL (Bytes)"] + userapp["Youtube UL (Bytes)"]
+  userapp["Total Netflix"]   = userapp["Netflix DL (Bytes)"] + userapp["Netflix UL (Bytes)"]
+  userapp["Total Email"]     = userapp["Email DL (Bytes)"] + userapp["Email UL (Bytes)"]
+  userapp["Total Gaming"]    = userapp["Gaming DL (Bytes)"] + userapp["Gaming UL (Bytes)"]
+  userapp["Total Social Media"] = userapp["Social Media DL (Bytes)"] + userapp["Social Media UL (Bytes)"]
+  userapp["Total Other"]     = userapp["Other DL (Bytes)"] + userapp["Other UL (Bytes)"]
+  userapp['Total']           = userapp['Total UL (Bytes)'] + userapp['Total DL (Bytes)']
 
   # Remove Outliers
   columns = ['Total Google', 'Total Youtube', 'Total Netflix', 'Total Email', 'Total Gaming', 'Total Social Media', 'Total Other', 'Total']
   
   
     
-  user_behaviour = user_app_usage.groupby('MSISDN/Number').agg(aggrigate)
+  user_behaviour = userapp.groupby('MSISDN/Number').agg(aggrigate)
   user_behaviour = utils.fix_outlier(user_behaviour, columns)
   return user_behaviour
 
@@ -71,14 +70,14 @@ def univriant(user_df):
   sns.displot(data=user_df, x='Total Google', color="red", kde=True, ax=ax1)
   ax1.set_title("Total Google")
   
-  ax2.hist(user_df['Total Youtube'])
-  ax2.set_title("Total Youtube")
+  ax2.hist(user_df['Total Email'])
+  ax2.set_title("Total Email")
 
-  ax3.hist(user_df['Total Netflix'])
-  ax3.set_title("Total Netflix")
+  ax3.hist(user_df['Total Youtube'])
+  ax3.set_title("Total Youtube")
 
-  ax4.hist(user_df['Total Email'])
-  ax4.set_title("Total Email")
+  ax4.hist(user_df['Total Netflix'])
+  ax4.set_title("Total Netflix")
 
   ax5.hist(user_df['Total Gaming'])
   ax5.set_title("Total Gaming")
@@ -91,7 +90,7 @@ def univriant(user_df):
   ax7.set_title("Total Netflix")
 
   ax8.hist(user_df['Total Other'])
-  sns.displot(data=user_df, x='Total Email', color="green", kde=True, ax=ax7)
+  sns.displot(data=user_df, x='Total Other', color="green", kde=True, ax=ax8)
   ax8.set_title("Total Other")
   st.pyplot()
 def app_engagement(user_df):
@@ -113,28 +112,30 @@ def plot_heatmap(df:pd.DataFrame, title:str, cbar=False)->None:
   sns.heatmap(df, annot=True, cmap='viridis', vmin=0, vmax=1, fmt='.2f', linewidths=.7, cbar=cbar )
   plt.title(title, size=18, fontweight='bold')
   st.pyplot()
-def run_engagement():
-  file_name = 'C:/Users/user/Desktop/Telecommunication/data/cleaned_data.csv'
+def engagement_analysis():
+  file_name = 'data/clean_df_tel1.csv'
   df_clean = pd.read_csv(file_name)
+  print(" I am at engahement")
 
-
-  st.write("## User Engagement Analysis")
+  #st.write("### User Engagement Analysis")
+  st.write("the following are results of the agrregation of each application based on the MSISDN/Number")
   user_df = get_user_related_columns(df_clean)
-  st.write(user_df.head())
-  #st.ploting.hist(user_df, 'Total Google', 'green')
+  st.write(user_df.head(7))
+  # correlation among each application
   correlation = user_df.corr()
+  st.write(" the correlation among each application in the given datasets")
   plot_heatmap(correlation, 'Correlation B/n  Applications')
-  st.write("## Univariant")
+  st.write("### The Univariant analysis of the applications")
   univriant(user_df)
-  st.write("## Bivariant")
+  st.write("### The Bivariant plot which shows the relatioship between the total with each application")
   bivariant(user_df)
 
   app_engagement(user_df)
 
-  st.write("## Engagment Analysis Result")
-  
+  st.write("### The Engagment Analysis of each application using plot")
   st.pyplot()
-  st.write("As it is indicated on graph c) the users are more engaged on Game. \
-To the Maximum 4,518,036 bytes of data volume is used for the gaming purpose.\
-The Correlation of the application are positive, that mean when the usage of the gaming increase the probability of using the other application also increase.\
-This shows that company is profitable in future time. Therefore, the company should emphasis on gaming application.")
+
+  st.write("The aggregation shows most of the customers of the telecommunications are engaged in game application.\
+    Close to 1,314,797,820 bytes of data are used for the gamming application.\
+    The correlation shows most of the applications are having small relationship which indicates the customers are most of the time focusing on specific application\
+                  Here the amount of the bytes used in the Total game and the Total byte have almost close relationship which proves most of the people are investing their data on gaming application.")

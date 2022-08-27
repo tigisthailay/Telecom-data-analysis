@@ -1,13 +1,4 @@
-import os
-import sys
-sys.path.append(os.path.abspath(os.path.join('..')))
-
-import warnings
-warnings.filterwarnings('ignore')
-import pandas as pd
 import streamlit as st
-
-from script import utils, clean_data
 
 def run():
   st.write("## Introduction")

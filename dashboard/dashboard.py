@@ -4,21 +4,15 @@ import streamlit as st
 import altair as alt
 from wordcloud import WordCloud
 import plotly.express as px
-from insert_data  import db_execute_fetch
+from pushed_data  import db_execute_fetch
 
 st.set_page_config(page_title="Telecom user analysis", layout="wide")
 
 def loadData():
-    query = "select * from TelecomDataTable"
+    query = "select * from TeleTable"
     df = db_execute_fetch(query, dbName="Telecom-DB", rdf=True)
     return df
 
-def selectHashTag():
-    df = loadData()
-    hashTags = st.multiselect("choose combaniation ", list(df['hashtags'].unique()))
-    if hashTags:
-        df = df[np.isin(df, hashTags).any(axis=1)]
-        st.write(df)
 
 def selectLocAndAuth():
     df = loadData()

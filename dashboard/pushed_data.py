@@ -119,11 +119,11 @@ def db_execute_fetch(*args, many=False, tablename='', rdf=True, **kwargs) -> pd.
         return res
 if __name__ == "__main__":
     #print("sucessfully")
-    dbName='Telecom_db'
+    dbName='Tele_db'
     createDB(dbName)
-    emojiDB(dbName='Telecom_db')
+    emojiDB(dbName='Tele_db')
     createTables(dbName)
     #file_name = 'tele-data.csv'
-    df = pd.read_csv('tele-data.csv')
-    insert_to_tweet_table(dbName='Telecom_db', df=df, table_name='TelecomDataTable')
+    df = pd.read_csv('telecom.csv')
+    insert_to_tweet_table(dbName='Tele_db', df=df, table_name='TeleTable')
     #print("sucessfully")

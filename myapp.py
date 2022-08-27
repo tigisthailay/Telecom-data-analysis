@@ -15,34 +15,28 @@ import dashboard.experience as expriance
 from dashboard.satisfuction import SatisfuctionAnalysis
 
 
-#with st.sidebar:
-  #'Engagement', 'Experience', 'Satisfaction'
-    #'bi-cloud-check-fill', 'bi-briefcase-fill','bi-check-square-fill'], menu_icon="cast", 
-page = option_menu('Menu', ['Main', 'user_analysis','engagement', 'experience', 'satisfaction'],
+
+page = option_menu('Menu', ['Main', 'User_Overview','User_Engagement', 'User_Experience', 'User_Satisfaction'],
                               icons=['house', 'bi-currency-exchange','bi-cloud-check-fill', 'bi-briefcase-fill',
                               'bi-check-square-fill'], menu_icon="cast", default_index=1)
 page
     
     
 df = pd.read_csv('C:/Users/user/Downloads/Telecom-data-analysis/data/cleaned_data.csv')
-    #file_name = 'data/telecom.csv'
-
-    #df1 = pd.read_csv(file_name)
-
+    
 overview = OverviewAnalysis(df)
-    #engagement = engagementAnalysis(df)
-    #expriance = exprianceAnalysis(df1)
+    
 satisfy = SatisfuctionAnalysis(df)
-    #df = pd.read_csv('data/clean_df_tel1.csv')
-if(page == 'home'):
+  
+if(page == 'main'):
   main1.run()
-elif(page == 'user_analysis'):
+elif(page == 'User_Overview'):
   overview.overview_analysis()
-elif(page == 'engagement'):
+elif(page == 'User_Engagement'):
   engage.engagement_analysis()
-elif(page == 'experience'):
+elif(page == 'User_Experience'):
   expriance.experiance_analysis()
-elif(page == 'satisfaction'):
+elif(page == 'User_Satisfaction'):
   satisfy.satisfaction_analysis()
 else:
  main1.run()

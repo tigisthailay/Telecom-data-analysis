@@ -5,4 +5,4 @@ COPY requirements.txt /
 RUN python3 -m pip install -r requirements.txt
 WORKDIR /app
 COPY . /app/
-CMD [ "python3", "myapp.py" ]
+CMD [ "python3", "app.py" ]

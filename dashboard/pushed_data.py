@@ -12,7 +12,7 @@ import mysql.connector as mysql
 from mysql.connector import Error
 
 def DBConnect(dbName=None):
-    conn = mysql.connect(host='localhost', user='root', password='tigraymearey14',
+    conn = mysql.connect(host='localhost', user='root', password='mommissedu',
                          database=dbName, buffered=True)
     cur = conn.cursor()
     return conn, cur
@@ -31,7 +31,7 @@ def createDB(dbName: str) -> None:
 
 def createTables(dbName: str) -> None:
     conn, cur = DBConnect(dbName)
-    sqlFile = 'schema_sql.sql'
+    sqlFile = 'schema.sql'
     fd = open(sqlFile, 'r')
     readSqlFile = fd.read()
     fd.close()

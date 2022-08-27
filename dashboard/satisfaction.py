@@ -40,7 +40,7 @@ class SatisfuctionAnalysis:
     #Read the cleaned csv file and store it on data
     ##file_name = './dashboard/tel-data.csv'
     #data1 = pd.read_csv(file_name)
-    file_name = 'data/tele-data.csv'
+    file_name = 'tele-data.csv'
     df_sat1 = pd.read_csv(file_name)
     new_netwok_df = df_sat1[['MSISDN/Number', 'Handset Type','TCP DL Retrans. Vol (Bytes)', 'TCP UL Retrans. Vol (Bytes)',\
                           'Avg RTT DL (ms)', 'Avg RTT UL (ms)',\

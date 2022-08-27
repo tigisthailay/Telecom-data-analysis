@@ -11,7 +11,7 @@ import streamlit as st
 import pandas as pd
 import streamlit as st
 import matplotlib.pyplot as plt
-import script.ploting_fun as plot
+import scrip.ploting as plot
 #from scripts import file
 import seaborn as sns
 #Exprience Analysis
@@ -35,7 +35,7 @@ def plot_bar(df:pd.DataFrame, x_col:str, y_col:str, title:str, xlabel:str, ylabe
 def experiance_analysis():
   #Read the csv file
   st.write("The User Experience Analysis in the Telecom campany")
-  file_name = 'data/tele-data.csv'
+  file_name = 'tele-data.csv'
   df_expre = pd.read_csv(file_name)
   new_df = df_expre[['MSISDN/Number', 'Handset Type','TCP DL Retrans. Vol (Bytes)', 'TCP UL Retrans. Vol (Bytes)',\
                          'Avg RTT DL (ms)', 'Avg RTT UL (ms)',\

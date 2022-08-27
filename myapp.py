@@ -18,13 +18,13 @@ from dashboard.satisfuction import SatisfuctionAnalysis
 #with st.sidebar:
   #'Engagement', 'Experience', 'Satisfaction'
     #'bi-cloud-check-fill', 'bi-briefcase-fill','bi-check-square-fill'], menu_icon="cast", 
-page = option_menu('Menu', ['Main', 'User_Overview','User_Engagement', 'User_Experience', 'User_Satisfaction'],
+page = option_menu('Menu', ['Main', 'user_analysis','engagement', 'experience', 'satisfaction'],
                               icons=['house', 'bi-currency-exchange','bi-cloud-check-fill', 'bi-briefcase-fill',
                               'bi-check-square-fill'], menu_icon="cast", default_index=1)
 page
     
     
-df = pd.read_csv('cleaned_data.csv')
+df = pd.read_csv('C:/Users/user/Downloads/Telecom-data-analysis/data/cleaned_data.csv')
     #file_name = 'data/telecom.csv'
 
     #df1 = pd.read_csv(file_name)
